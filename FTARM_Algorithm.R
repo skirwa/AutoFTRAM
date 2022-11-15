@@ -9,6 +9,7 @@
 # User-defined functions to be called:
 # Initialize_Remove, Save, Expand_L, Expand_R
 
+# Algorithm 1 - ftarm algorithm
 ftarm <- function(DB, k, minconf) {
   R <- list()
   L <- list()
