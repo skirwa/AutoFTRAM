@@ -8,6 +8,63 @@
 
 # User-defined functions to be called:
 # Initialize_Remove, Save, Expand_L, Expand_R
+Initialize_Remove <- function (DB, k, mconf) {
+  # Calculate minimum number of items m required to generate k rules based on k
+  m <- k + 1
+  
+  # sort based on sup from DB
+  DB1 <- sortDescBasedOnSup(DB)
+
+  for (i in seq(from=1, to=length(DB1), by=m)) {
+    I <- head(DB1,m)
+    print(I)
+    if (minConf(I) > mconf) {
+      break;
+    }
+  }
+  msup <- minSup(DB, I)
+  
+  for (i in data) {
+    if (i.sup < msup) {
+      # Remove from the db
+    }
+  } m
+}
+
+minConf <- function(x, DB) {
+  maxTid = -1
+  print(x)
+  for (i in x) {
+    if (length(tid(i)) > maxTid) {
+      maxTid = length(tid(i))
+    }
+  }
+  return(length(tids(x))/maxTid)
+}
+
+minSup <- function(x, data) {
+   return(length(tids(x))/length(data))
+}
+
+tids <- function(x, data) {
+  # query from db to get the tids for given set of items
+}
+
+sortDescBasedOnSup <- function(x) {
+  swap_done <- TRUE
+  while (swap_done) {
+    swap_done <- FALSE
+    for (i in 1:(length(x) - 1)) {
+      if (sup(x[i]) < sup(x[i + 1])) {
+        tmp <- x[i]
+        x[i] <- x[i + 1]
+        x[i + 1] <- tmp
+        swap_done <- TRUE
+      }
+    }
+  }
+  return(x)
+}
 
 ftarm <- function(DB, k, minconf) {
   R <- list()
