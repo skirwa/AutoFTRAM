@@ -66,6 +66,50 @@ sortDescBasedOnSup <- function(x) {
   return(x)
 }
 
+# Algorithm 3
+
+save <- function(r, L, k, minsup) {
+  L <- append(L, r)
+  if (length(L) > k) {
+    count = 0
+    for (rule in L) {
+      if (sup(l) == minsup) {
+       count <- count + 1
+      }
+    }
+    
+    if (length(L) - count >= k) {
+      # remove rules with support equal to minsup
+      newL <- list()
+      for (rule in L) {
+        if (sup(l) != minsup) {
+          append(newL, l)
+        }
+      }
+      L <- newL
+      
+      # set minsup to lowest support of rules in L
+      newMinSup <- 99999999
+      for (rule in L) {
+        if (sup(l) < newMinSup) {
+          newMinSup <- sup(l)
+        }
+      }
+      minsup <- newMinSup
+      
+      # Find max item based on minsup and position in total order 
+      MaxItem <- 0
+      for (i in I) {
+        if (sup(i) > minsup & i.totalOrderPosition > MaxItem.totalOrderPosition ) {
+          MaxItem <- i
+        }
+      }
+    }
+  }
+}
+
+
+
 # Algorithm 1 - ftarm algorithm
 ftarm <- function(DB, k, minconf) {
   R <- list()
