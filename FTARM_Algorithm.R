@@ -66,6 +66,7 @@ sortDescBasedOnSup <- function(x) {
   return(x)
 }
 
+# Algorithm 1 - ftarm algorithm
 ftarm <- function(DB, k, minconf) {
   R <- list()
   L <- list()
@@ -117,3 +118,30 @@ ftarm <- function(DB, k, minconf) {
   }
   return (L)
 }
+
+# Algorithm 4 - expand_L
+
+# Algorithm 5 - expand_R
+  expand_R <- function(r, L, R, k, minsup, minconf) {
+    # Scan transaction list from db to get the itemSet I
+    # FIXME: I should be a candidate item set of the CONSEQUENT of r
+    I <- list()
+    for (i in I) { # for every item i in I
+      # add i to the consequent of r to get r'
+      r1.itemSet <- append(r.itemSet, i)
+      # if the support value of r' is greater than or equal to our provided minimum support value 
+      if (sup(r1) >= minsup) {
+        if (conf(r.itemset, i) >= minconf) { # and
+        # save with new rule r', but the same L, k, and minimum support value
+          save(r1, L, k, minsup)
+        }
+        # FIXME: if the LARGEST item of the CONSEQUENT of r' is LESS THAN MaxItem
+        for (i in r1.itemSet) {
+          if (i.totalOrderPosition > MaxItem.totalOrderPosition ) {
+            expandLR <- FALSE
+            R <- append(R, r1) # FIXME: algorithm: R := R union {r'}
+          }
+        }
+      }
+    }
+  }
