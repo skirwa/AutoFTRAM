@@ -28,7 +28,7 @@ Initialize_Remove <- function (DB, k, mconf) {
     if (i.sup < msup) {
       # Remove from the db
     }
-  } m
+  }
 }
 
 minConf <- function(x, DB) {
@@ -164,6 +164,31 @@ ftarm <- function(DB, k, minconf) {
 }
 
 # Algorithm 4 - expand_L
+expand_L <- function(r, L, R, k, minsup, minconf) {
+  # Scan transaction list from db to get the itemSet I
+  # FIXME: I should be a candidate item set of the ANTECEDENT of r
+  I <- list()
+  
+  for (i in I) {
+    r1.itemSet <- append(r.itemSet, i)
+    
+    if (sup(r1) >= minsup) {
+      if (conf(r1.itemset, i) >= minconf) {
+        save(r1, L, k, minsup)
+      }
+      expandLR <- TRUE
+      # FIXME: Only check largest item, not all
+      for (i in r1.itemSet) {
+        if (i.totalOrderPosition > MaxItem.totalOrderPosition ) {
+          expandLR <- FALSE
+        } else {
+          expandLR <- TRUE
+        }
+      }
+    }
+    R <- append(R, r1)
+  }
+}
 
 # Algorithm 5 - expand_R
   expand_R <- function(r, L, R, k, minsup, minconf) {
