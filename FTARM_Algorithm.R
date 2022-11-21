@@ -198,7 +198,8 @@ expand_L <- function(r, L, R, k, minsup, minconf) {
     for (i in I) { # for every item i in I
       # add i to the consequent of r to get r'
       r1.itemSet <- append(r.itemSet, i)
-      # if the support value of r' is greater than or equal to our provided minimum support value 
+      # if the support value of r' is greater than or equal to
+      # our provided minimum support value
       if (sup(r1) >= minsup) {
         if (conf(r.itemset, i) >= minconf) { # and
         # save with new rule r', but the same L, k, and minimum support value
