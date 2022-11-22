@@ -68,33 +68,43 @@ Initialize_Remove <- function (DB, k, mconf) {
   # Calculate minimum number of items m required to generate k rules based on k.
   m <- k * (2/15) # Derived from the example in the article (Propert 5). 
   
-  # sort based on sup from DB
-  DB1 <- sortDescBasedOnSup(DB) # Sort items in the database in descending order of support.
+  # Sort items in the database based descending order of support.
+  DB1 <- sortDescBasedOnSup(DB) 
+  
+  # A list of minimum number of items m required to generate k rules.
+  I <- head(DB1,m) 
 
-  I <- head(DB1,m) # A list of minimum number of items m required to generate k rules.
-
-  for (i in I) {   # For each item in the list I
+  # For each item in the list I:
+  for (i in I) {   
     if (minConf(I) >= mconf) { 
       break;
     }
   }
   msup <- minSup(DB, I)
   
-  for (i in I) { # For each item in list I
-    if (sup(i) < msup) {  # If it's support value is less than the minimum support value.
-      I[i] <- NULL # Remove the item from the list
+  # For each item in list I:
+  for (i in I) { 
+    # If it's support value is less than the minimum support value:
+    if (sup(i) < msup) {
+      # Remove the item from the list.  
+      I[i] <- NULL 
     }
   }
 }
 
-sup <- function(DB, i) {   # Calculate support of an item
+# Calculate the support value for an item.
+sup <- function(DB, i) {
+  # Support is the no of transactions (I) in DB with item i / total number of transactions in DB.   
   support <- length(tids(i)) / length(DB)
   return(support)
 }
 
+# Calculate the confidence value for an item
 conf <- function(DB, x, y) {
     totalItems = append(x, y)
-    return (length(tids(totalItems)/length(tids(x))))
+    # Confidence is the no of transactions with items x and y / no of transactions with item x.
+    confidence = length(tids(totalItems)/length(tids(x)))
+    return (confidence)
 }
 
 minConf <- function(x, DB) {
