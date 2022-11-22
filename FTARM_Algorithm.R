@@ -6,111 +6,9 @@
 #     L contains the k most frequent association rules that meet the minimum support and confidence values.
 # I - A set of items (i, j). 
 
-# User-defined functions to be called:
-# Initialize_Remove, Save, Expand_L, Expand_R
-Initialize_Remove <- function (DB, k, mconf) {
-  # Calculate minimum number of items m required to generate k rules based on k
-  m <- k + 1
-  
-  # sort based on sup from DB
-  DB1 <- sortDescBasedOnSup(DB)
-
-  for (i in seq(from=1, to=length(DB1), by=m)) {
-    I <- head(DB1,m)
-    print(I)
-    if (minConf(I) > mconf) {
-      break;
-    }
-  }
-  msup <- minSup(DB, I)
-  
-  for (i in data) {
-    if (i.sup < msup) {
-      # Remove from the db
-    }
-  }
-}
-
-minConf <- function(x, DB) {
-  maxTid = -1
-  print(x)
-  for (i in x) {
-    if (length(tid(i)) > maxTid) {
-      maxTid = length(tid(i))
-    }
-  }
-  return(length(tids(x))/maxTid)
-}
-
-minSup <- function(x, data) {
-   return(length(tids(x))/length(data))
-}
-
-tids <- function(x, data) {
-  # query from db to get the tids for given set of items
-}
-
-sortDescBasedOnSup <- function(x) {
-  swap_done <- TRUE
-  while (swap_done) {
-    swap_done <- FALSE
-    for (i in 1:(length(x) - 1)) {
-      if (sup(x[i]) < sup(x[i + 1])) {
-        tmp <- x[i]
-        x[i] <- x[i + 1]
-        x[i + 1] <- tmp
-        swap_done <- TRUE
-      }
-    }
-  }
-  return(x)
-}
-
-# Algorithm 3
-
-save <- function(r, L, k, minsup) {
-  L <- append(L, r)
-  if (length(L) > k) {
-    count = 0
-    for (rule in L) {
-      if (sup(l) == minsup) {
-       count <- count + 1
-      }
-    }
-    
-    if (length(L) - count >= k) {
-      # remove rules with support equal to minsup
-      newL <- list()
-      for (rule in L) {
-        if (sup(l) != minsup) {
-          append(newL, l)
-        }
-      }
-      L <- newL
-      
-      # set minsup to lowest support of rules in L
-      newMinSup <- 99999999
-      for (rule in L) {
-        if (sup(l) < newMinSup) {
-          newMinSup <- sup(l)
-        }
-      }
-      minsup <- newMinSup
-      
-      # Find max item based on minsup and position in total order 
-      MaxItem <- 0
-      for (i in I) {
-        if (sup(i) > minsup & i.totalOrderPosition > MaxItem.totalOrderPosition ) {
-          MaxItem <- i
-        }
-      }
-    }
-  }
-}
-
-
 
 # Algorithm 1 - ftarm algorithm
+
 ftarm <- function(DB, k, minconf) {
   R <- list()
   L <- list()
@@ -162,6 +60,120 @@ ftarm <- function(DB, k, minconf) {
   }
   return (L)
 }
+
+
+# Algorithm 2 - Initialize_Remove
+
+Initialize_Remove <- function (DB, k, mconf) {
+  # Calculate minimum number of items m required to generate k rules based on k.
+  m <- k * (2/15) # Derived from the example in the article (Propert 5). 
+  
+  # sort based on sup from DB
+  DB1 <- sortDescBasedOnSup(DB) # Sort items in the database in descending order of support.
+
+  I <- head(DB1,m) # A list of minimum number of items m required to generate k rules.
+
+  for (i in I) {   # For each item in the list I
+    if (minConf(I) >= mconf) { 
+      break;
+    }
+  }
+  msup <- minSup(DB, I)
+  
+  for (i in I) { # For each item in list I
+    if (sup(i) < msup) {  # If it's support value is less than the minimum support value.
+      I[i] <- NULL # Remove the item from the list
+    }
+  }
+}
+
+sup <- function(DB, i) {   # Calculate support of an item
+  support <- length(tids(i)) / length(DB)
+  return(support)
+}
+
+conf <- function(DB, x, y) {
+    totalItems = append(x, y)
+    return (length(tids(totalItems)/length(tids(x))))
+}
+
+minConf <- function(x, DB) {
+  maxTid = -1
+  print(x)
+  for (i in x) {
+    if (length(tid(i)) > maxTid) {
+      maxTid = length(tid(i))
+    }
+  }
+  return(length(tids(x))/maxTid)
+}
+
+minSup <- function(x, data) {
+   return(length(tids(x))/length(data))
+}
+
+tids <- function(x, data) {
+  # query from db to get the tids for given set of items
+}
+
+sortDescBasedOnSup <- function(x) {
+  swap_done <- TRUE
+  while (swap_done) {
+    swap_done <- FALSE
+    for (i in 1:(length(x) - 1)) {
+      if (sup(x[i]) < sup(x[i + 1])) {
+        tmp <- x[i]
+        x[i] <- x[i + 1]
+        x[i + 1] <- tmp
+        swap_done <- TRUE
+      }
+    }
+  }
+  return(x)
+}
+
+# Algorithm 3 - Save
+
+save <- function(r, L, k, minsup) {
+  L <- append(L, r)
+  if (length(L) > k) {
+    count = 0
+    for (rule in L) {
+      if (sup(l) == minsup) {
+       count <- count + 1
+      }
+    }
+    
+    if (length(L) - count >= k) {
+      # remove rules with support equal to minsup
+      newL <- list()
+      for (rule in L) {
+        if (sup(l) != minsup) {
+          append(newL, l)
+        }
+      }
+      L <- newL
+      
+      # set minsup to lowest support of rules in L
+      newMinSup <- 99999999
+      for (rule in L) {
+        if (sup(l) < newMinSup) {
+          newMinSup <- sup(l)
+        }
+      }
+      minsup <- newMinSup
+      
+      # Find max item based on minsup and position in total order 
+      MaxItem <- 0
+      for (i in I) {
+        if (sup(i) > minsup & i.totalOrderPosition > MaxItem.totalOrderPosition ) {
+          MaxItem <- i
+        }
+      }
+    }
+  }
+}
+
 
 # Algorithm 4 - expand_L
 expand_L <- function(r, L, R, k, minsup, minconf) {
