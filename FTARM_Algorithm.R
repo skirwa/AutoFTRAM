@@ -131,12 +131,16 @@ tids <- function(x, DB) {
   return(length(tidset))
 }
 
+#Sort in descending order based on support.
 sortDescBasedOnSup <- function(x) {
   swap_done <- TRUE
   while (swap_done) {
     swap_done <- FALSE
+    # For each item in the database
     for (i in 1:(length(x) - 1)) {
+      # If support of the item at index x[i] is greater than the support of the item that is next in the list
       if (sup(x[i]) < sup(x[i + 1])) {
+        # Then assign the item to a temporary list
         tmp <- x[i]
         x[i] <- x[i + 1]
         x[i + 1] <- tmp
