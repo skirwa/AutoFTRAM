@@ -122,8 +122,13 @@ minSup <- function(x, data) {
    return(length(tids(x))/length(data))
 }
 
-tids <- function(x, data) {
+# Tids is the transaction identifier of a set of items.
+# tids(x) - how many transactions (columns) have item x?
+# tids(x,y) - how many transactions (columns) have items x and y combined?
+tids <- function(x, DB) {
   # query from db to get the tids for given set of items
+  tidset <- which(DB[x, ] !=0)
+  return(length(tidset))
 }
 
 sortDescBasedOnSup <- function(x) {
