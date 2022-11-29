@@ -167,13 +167,20 @@ SortItem <- function(DB) {
 
 # Algorithm 3 - Save
 
+# This function updates the set L, minsup and MaxItem
+# in real time during the algorithm's execution.
 save <- function(r, L, k, minsup) {
+  # Add rule r to the set L.
   L <- append(L, r)
-  if (length(L) > k) {
+  # If L contains atleast k rules after removing
+  # the rules with a support of minsup, these rules are removed.
+  if (length(L) > = k) {
     count = 0
+    # Append rule to count if its support is equal to minsup
     for (rule in L) {
-      if (sup(l) == minsup) {
-       count <- count + 1
+      if (sup(rule) == minsup) {
+        # Count contains the number of rules in L with support equal to minsup
+        count <- count + 1
       }
     }
     
@@ -181,13 +188,15 @@ save <- function(r, L, k, minsup) {
       # remove rules with support equal to minsup
       newL <- list()
       for (rule in L) {
-        if (sup(l) != minsup) {
-          append(newL, l)
+        if (sup(rule) != minsup) {
+          append(newL, rule)
         }
       }
+      # L contains rules with support not equal to minsup
       L <- newL
       
       # set minsup to lowest support of rules in L
+      # newMinSup <- min(unlist(L)) - Alternate procedure for getting newMinSup
       newMinSup <- 99999999
       for (rule in L) {
         if (sup(l) < newMinSup) {
