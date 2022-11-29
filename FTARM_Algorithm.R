@@ -147,6 +147,20 @@ sortDescBasedOnSup <- function(x) {
   return(x)
 }
 
+# Alternate function for sorting the items based on their support value
+SortItem <- function(DB) {
+  #Define an empty vector
+  support <- c()
+  #for each item in the database
+  for (i in DB) {
+    #Append the support of each item to the list
+    support <- c(support, sup(i))
+  }
+  #Sort in descending order
+  swapped <- DB[order(support) , ]
+  return(swapped)
+}
+
 # Algorithm 3 - Save
 
 save <- function(r, L, k, minsup) {
