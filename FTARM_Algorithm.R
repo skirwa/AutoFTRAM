@@ -126,9 +126,16 @@ minSup <- function(x, data) {
 # tids(x) - how many transactions (columns) have item x?
 # tids(x,y) - how many transactions (columns) have items x and y combined?
 tids <- function(x, DB) {
-  # query from db to get the tids for given set of items
-  tidset <- which(DB[x, ] !=0)
-  return(length(tidset))
+  # calculate number of columns that contain x
+  # FIXME: reformat this for our csv file
+  diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
+}
+
+
+tids <- function(x, y, DB) {
+  # calculate the number of columns that contain x AND y
+  # FIXME: reformat this for our csv file
+  diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
 }
 
 #Sort in descending order based on support.
@@ -174,7 +181,7 @@ save <- function(r, L, k, minsup) {
   L <- append(L, r)
   # If L contains atleast k rules after removing
   # the rules with a support of minsup, these rules are removed.
-  if (length(L) > = k) {
+  if (length(L) >= k) {
     count = 0
     # Append rule to count if its support is equal to minsup
     for (rule in L) {
