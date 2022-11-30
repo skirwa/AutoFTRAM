@@ -6,7 +6,6 @@
 #     L contains the k most frequent association rules that meet the minimum support and confidence values.
 # I - A set of items (i, j). 
 
-
 # Algorithm 1 - ftarm algorithm
 
 ftarm <- function(DB, k, minconf) {
@@ -63,7 +62,7 @@ ftarm <- function(DB, k, minconf) {
 
 
 # Algorithm 2 - Initialize_Remove
-
+# Sharon
 Initialize_Remove <- function (DB, k, mconf) {
   # Calculate minimum number of items m required to generate k rules based on k.
   m <- k * (2/15) # Derived from the example in the article (Propert 5). 
@@ -95,50 +94,54 @@ Initialize_Remove <- function (DB, k, mconf) {
 # Calculate the support value for an item.
 sup <- function(DB, i) {
   # Support is the no of transactions (I) in DB with item i / total number of transactions in DB.   
-  support <- length(tids(i)) / length(DB)
+  support <- tids(i, DB) / length(DB)
   return(support)
 }
 
 # Calculate the confidence value for an item
 conf <- function(DB, x, y) {
-    totalItems = append(x, y)
+    #totalItems = append(x, y)
     # Confidence is the no of transactions with items x and y / no of transactions with item x.
-    confidence = length(tids(totalItems)/length(tids(x)))
+    # 
+    confidence = tids(x, y, DB)/tids(x, DB)
     return (confidence)
 }
 
+# Jaya
 minConf <- function(x, DB) {
   maxTid = -1
   print(x)
   for (i in x) {
-    if (length(tid(i)) > maxTid) {
-      maxTid = length(tid(i))
+    if (tids(i, DB) > maxTid) {
+      maxTid = tids(i, DB)
     }
   }
-  return(length(tids(x))/maxTid)
+  return(tids(x, DB)/maxTid)
 }
 
+# Trilok
 minSup <- function(x, data) {
-   return(length(tids(x))/length(data))
+   return(tids(x, data)/length(data))
 }
 
 # Tids is the transaction identifier of a set of items.
 # tids(x) - how many transactions (columns) have item x?
 # tids(x,y) - how many transactions (columns) have items x and y combined?
+# Jason
 tids <- function(x, DB) {
   # calculate number of columns that contain x
-  # FIXME: reformat this for our csv file
+  # FIXME: reformat this for matrix
   diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
 }
 
-
 tids <- function(x, y, DB) {
   # calculate the number of columns that contain x AND y
-  # FIXME: reformat this for our csv file
+  # FIXME: reformat this for matrix
   diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
 }
 
 #Sort in descending order based on support.
+# Sharon
 sortDescBasedOnSup <- function(x) {
   swap_done <- TRUE
   while (swap_done) {
@@ -176,6 +179,7 @@ SortItem <- function(DB) {
 
 # This function updates the set L, minsup and MaxItem
 # in real time during the algorithm's execution.
+# Sharon
 save <- function(r, L, k, minsup) {
   # Add rule r to the set L.
   L <- append(L, r)
