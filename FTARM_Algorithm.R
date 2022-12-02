@@ -1,4 +1,3 @@
-
 # DB - Database
 # k - Number of  rules that the user wants to be generated.
 # L - A set containing valid rules. If the support of a rule meets the minimum support value,
@@ -128,16 +127,26 @@ minSup <- function(x, data) {
 # tids(x) - how many transactions (columns) have item x?
 # tids(x,y) - how many transactions (columns) have items x and y combined?
 # Jason
-tids <- function(x, DB) {
+tids <- function(searchFor, DB) {
   # calculate number of columns that contain x
   # FIXME: reformat this for matrix
-  diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
+  #diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
+  
+  # movie_ratings implementation: count how many columns x appears in
+  DB <- as.list(DB)
+  result <- lapply(DB, function(x) {
+    sum(x == searchFor)
+  })
 }
 
-tids <- function(x, y, DB) {
+tids <- function(searchFor1, searchFor2, DB) {
   # calculate the number of columns that contain x AND y
   # FIXME: reformat this for matrix
-  diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
+  #diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
+  # movie_ratings implementation: count how many columns x AND y appear in
+  
+  DB <- as.list(DB)
+  result <- lapply(DB, function(x) sum(x == searchFor1) != 0 && sum(x == searchFor2) != 0)
 }
 
 #Sort in descending order based on support.
