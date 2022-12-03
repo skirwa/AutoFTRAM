@@ -74,7 +74,7 @@ Initialize_Remove <- function (DB, k, mconf) {
 
   # For each item in the list I:
   for (i in I) {   
-    if (minConf(I) >= mconf) { 
+    if (minConf(I, DB1) >= mconf) { 
       break;
     }
   }
@@ -90,26 +90,26 @@ Initialize_Remove <- function (DB, k, mconf) {
   }
 }
 
-# Calculate the support value for an item.
+# Calculate the support value for an item. WORKING
 sup <- function(DB, i) {
   # Support is the no of transactions (I) in DB with item i / total number of transactions in DB.   
   support <- tids(i, DB) / length(DB)
   return(support)
 }
 
-# Calculate the confidence value for an item
+# Calculate the confidence value for an item WORKING
 conf <- function(DB, x, y) {
     #totalItems = append(x, y)
     # Confidence is the no of transactions with items x and y / no of transactions with item x.
     # 
-    confidence = tids(x, y, DB)/tids(x, DB)
+    confidence = tidsForTwo(x, y, DB) / tids(x, DB)
     return (confidence)
 }
 
-# Jaya
+# Jaya FIXME Sharon
 minConf <- function(x, DB) {
   maxTid = -1
-  print(x)
+  #print(x)
   for (i in x) {
     if (tids(i, DB) > maxTid) {
       maxTid = tids(i, DB)
@@ -118,7 +118,7 @@ minConf <- function(x, DB) {
   return(tids(x, DB)/maxTid)
 }
 
-# Trilok
+# Trilok FIXME Sharon
 minSup <- function(x, data) {
    return(tids(x, data)/length(data))
 }
@@ -128,29 +128,42 @@ minSup <- function(x, data) {
 # tids(x,y) - how many transactions (columns) have items x and y combined?
 # Jason
 tids <- function(searchFor, DB) {
-  # calculate number of columns that contain x
-  # FIXME: reformat this for matrix
-  #diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
-  
   # movie_ratings implementation: count how many columns x appears in
   DB <- as.list(DB)
   result <- lapply(DB, function(x) {
     sum(x == searchFor)
   })
+  
+  total <- 0
+  for(i in result) {
+    if(i[1] == 1) {
+      total <- total + 1
+    }
+  }
+  return(total)
 }
 
-tids <- function(searchFor1, searchFor2, DB) {
+tidsForTwo <- function(searchFor1, searchFor2, DB) {
   # calculate the number of columns that contain x AND y
   # FIXME: reformat this for matrix
   #diff(t(DB@data)@p)[which(DB@itemInfo$labels == x)]
   # movie_ratings implementation: count how many columns x AND y appear in
-  
+
   DB <- as.list(DB)
   result <- lapply(DB, function(x) sum(x == searchFor1) != 0 && sum(x == searchFor2) != 0)
+  
+  total <- 0
+  for(i in result) {
+    if(i[1]) {
+      total <- total + 1
+    }
+  }
+  return(total)
 }
 
 #Sort in descending order based on support.
 # Sharon
+# NOT USED
 sortDescBasedOnSup <- function(x) {
   swap_done <- TRUE
   while (swap_done) {
@@ -171,6 +184,7 @@ sortDescBasedOnSup <- function(x) {
 }
 
 # Alternate function for sorting the items based on their support value
+# Sharon FIXME
 SortItem <- function(DB) {
   #Define an empty vector
   support <- c()
@@ -188,7 +202,7 @@ SortItem <- function(DB) {
 
 # This function updates the set L, minsup and MaxItem
 # in real time during the algorithm's execution.
-# Sharon
+# Sharon NOT WORKING
 save <- function(r, L, k, minsup) {
   # Add rule r to the set L.
   L <- append(L, r)
@@ -237,7 +251,7 @@ save <- function(r, L, k, minsup) {
 }
 
 
-# Algorithm 4 - expand_L
+# Algorithm 4 - expand_L NOT WORKING
 expand_L <- function(r, L, R, k, minsup, minconf) {
   # Scan transaction list from db to get the itemSet I
   # FIXME: I should be a candidate item set of the ANTECEDENT of r
@@ -264,7 +278,7 @@ expand_L <- function(r, L, R, k, minsup, minconf) {
   }
 }
 
-# Algorithm 5 - expand_R
+# Algorithm 5 - expand_R NOT WORKING
   expand_R <- function(r, L, R, k, minsup, minconf) {
     # Scan transaction list from db to get the itemSet I
     # FIXME: I should be a candidate item set of the CONSEQUENT of r
