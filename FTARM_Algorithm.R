@@ -180,7 +180,7 @@ SortItem <- function(DB) {
   
   new_df$support <- func(new_df)
   swapped <- new_df[order(support), ]
-  return(swapped)
+  swapped
 }
 
 # Algorithm 3 - Save
