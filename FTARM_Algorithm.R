@@ -161,40 +161,25 @@ tidsForTwo <- function(searchFor1, searchFor2, DB) {
   return(total)
 }
 
-#Sort in descending order based on support.
-# Sharon
-# NOT USED
-sortDescBasedOnSup <- function(x) {
-  swap_done <- TRUE
-  while (swap_done) {
-    swap_done <- FALSE
-    # For each item in the database
-    for (i in 1:(length(x) - 1)) {
-      # If support of the item at index x[i] is greater than the support of the item that is next in the list
-      if (sup(x[i]) < sup(x[i + 1])) {
-        # Then assign the item to a temporary list
-        tmp <- x[i]
-        x[i] <- x[i + 1]
-        x[i + 1] <- tmp
-        swap_done <- TRUE
-      }
-    }
-  }
-  return(x)
-}
 
 # Alternate function for sorting the items based on their support value
 # Sharon FIXME
 SortItem <- function(DB) {
   #Define an empty vector
-  support <- c()
-  #for each item in the database
-  for (i in DB) {
-    #Append the support of each item to the list
-    support <- c(support, sup(i))
+  itemsinData <- c()
+  #New database
+  for (i in DB){
+    itemsinData <- c(itemsinData, i)
   }
-  #Sort in descending order
-  swapped <- DB[order(support) , ]
+  new_df <- data.frame(sapply(itemsinData,c))
+  colnames(new_df)[1] ="id"
+  
+  func <- function(new_df){
+    return(sapply(new_df$id, function(id) sum(new_df$id == id)/nrow(new_df)))
+  }
+  
+  new_df$support <- func(new_df)
+  swapped <- new_df[order(support), ]
   return(swapped)
 }
 
