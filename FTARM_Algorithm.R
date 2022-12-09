@@ -67,7 +67,7 @@ Initialize_Remove <- function (DB, k, mconf) {
   m <- k * (2/15) # Derived from the example in the article (Propert 5). 
   
   # Sort items in the database based descending order of support.
-  DB1 <- sortDescBasedOnSup(DB) 
+  DB1 <- SortItems(DB) 
   
   # A list of minimum number of items m required to generate k rules.
   I <- head(DB1,m) 
@@ -106,19 +106,23 @@ conf <- function(DB, x, y) {
     return (confidence)
 }
 
-# Jaya FIXME Sharon
-minConf <- function(x, DB) {
+# A list of items should be parsed into minConf and minSup
+# However, we were unable to write a tids function that takes in a list.
+# Therefore, for minConf and minSup, we used the tidsForTwo function instead.
+# The minConf function is supposed to calculate the minimum confidence value.
+minConf <- function(DB, searchFor1, searchFor2) {
   maxTid = -1
-  #print(x)
+  x <- list()
+  x.append(searchFor1, searchFor2)
   for (i in x) {
     if (tids(i, DB) > maxTid) {
       maxTid = tids(i, DB)
     }
   }
-  return(tids(x, DB)/maxTid)
+  return(tidsForTwo(searchFor1, searchFor2, DB)/maxTid)
 }
 
-# Trilok FIXME Sharon
+# The minSup function calculates the minimum support value.
 minSup <- function(x, data) {
    return(tids(x, data)/length(data))
 }
@@ -162,26 +166,29 @@ tidsForTwo <- function(searchFor1, searchFor2, DB) {
 }
 
 
-# Alternate function for sorting the items based on their support value
-# Sharon FIXME
-SortItem <- function(DB) {
-  #Define an empty vector
+# Function for sorting the items in the dataset based on their support value
+SortItems <- function(DB) {
+  # Define an empty vector
   itemsinData <- c()
-  #New database
+  # Store the ids of the items in the database in the empty vector
   for (i in DB){
     itemsinData <- c(itemsinData, i)
   }
+  # Convert the list of items to a dataframe
   new_df <- data.frame(sapply(itemsinData,c))
+  # Rename the column with ids
   colnames(new_df)[1] ="id"
-  
+  # This function returns the support value for each item.
   func <- function(new_df){
     return(sapply(new_df$id, function(id) sum(new_df$id == id)/nrow(new_df)))
   }
-  
+  # Create a new column that contains the support values of the corresponding items.
   new_df$support <- func(new_df)
-  swapped <- new_df[order(support), ]
+  # Sort the items in descending order based on their support values
+  swapped <- new_df %>% arrange(desc(support))
   swapped
 }
+
 
 # Algorithm 3 - Save
 
