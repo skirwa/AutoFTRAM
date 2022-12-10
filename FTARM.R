@@ -55,10 +55,12 @@ sup <- function(x, DB) {
 #' @param DB The data set the two items originate from.
 #' @return The confidence value.
 #' @author @skirwa
-conf <- function(x, y, DB) {
-    # Confidence is the no of transactions with items x and y / no of transactions with item x.
-    confidence = tidsForTwo(x, y, DB) / tids(x, DB)
-    return (confidence)
+conf <- function(DB, x, y) {
+  #totalItems = append(x, y)
+  # Confidence is the no of transactions with items x and y / no of transactions with item x.
+  # 
+  confidence = tidsForTwo(x, y, DB) / tids(x, DB)
+  return (confidence)
 }
 
 #' @title minConf
