@@ -1,0 +1,56 @@
+#' @title sup
+#' @description Calculate the support value for an item.
+#' @details
+#' @param x The item whose support value will be calculated.
+#' @param DB The data set the item originates from.
+#' @return The support value.
+#' @author @skirwa
+sup <- function(x, DB) {
+  # Support is the no of transactions (I) in DB with item i / total number of transactions in DB.   
+  support <- tids(x, DB) / length(DB)
+  return(support)
+}
+
+#' @title conf
+#' @description Calculate the confidence value for a pair of items in the data.
+#' @details
+#' @param x The first of the two items to compute the confidence value for.
+#' @param y The second of the two items to compute the confidence value for.
+#' @param DB The data set the two items originate from.
+#' @return The confidence value.
+#' @author @skirwa
+conf <- function(x, y, DB) {
+    # Confidence is the no of transactions with items x and y / no of transactions with item x.
+    confidence = tidsForTwo(x, y, DB) / tids(x, DB)
+    return (confidence)
+}
+
+#' @title minConf
+#' @description Calculate the minimum confidence value for a pair of items in the data.
+#' @details
+#' @param x The first of the two items to compute the confidence value for.
+#' @param y The second of the two items to compute the confidence value for.
+#' @param DB The data set the two items originate from.
+#' @return The minimum acceptable confidence value for the pair of items.
+#' @author @skirwa
+minConf <- function(x, y, DB) {
+  maxTid = -1
+  
+  if (tidsForTwo(x, y, DB) > maxTid) {
+    maxTid = tidsForTwo(x, y, DB)
+  }
+
+  return(tidsForTwo(x, y, DB)/maxTid)
+}
+
+#' @title minSup
+#' @description Calculate the minimum support value for a pair of items in the data.
+#' @details
+#' @param x The first of the two items to compute the confidence value for.
+#' @param y The second of the two items to compute the confidence value for.
+#' @param DB The data set the two items originate from.
+#' @return The minimum acceptable support value for the pair of items.
+#' @author @skirwa
+minSup <- function(x, y, DB) {
+   return(tidsForTwo(x, y, DB)/length(DB))
+}
