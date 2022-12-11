@@ -1,6 +1,7 @@
 #' @title NULL
-#' @description 
-#' @details 
+#' @description A NULL function to explain the package and provide references.
+#' @details Since we are implementing an algorithm proposed by an article, we reference
+#' the article here.
 #' @author @NessXToJason
 #' @references This package implements functions that are inspired by the
 #' steps of an algoritm proposed in the following article:
