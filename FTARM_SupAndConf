@@ -37,14 +37,18 @@ conf <- function(x, y, DB) {
 #' @param DB The data set the two items originate from.
 #' @return The minimum acceptable confidence value for the pair of items.
 #' @author @skirwa
-minConf <- function(x, y, DB) {
-  maxTid = -1
-  
-  if (tidsForTwo(x, y, DB) > maxTid) {
-    maxTid = tidsForTwo(x, y, DB)
+minConf <- function(DB, searchFor1, searchFor2) {
+  # Item with the maximum tid is assigned to the maxTid variable.
+  maxTid <- -1
+  # Items are added to list x
+  x <- list()
+  x <- append(x, searchFor1, searchFor2)
+  for (i in x) {
+    if (tids(i, DB) > maxTid) {
+      maxTid = tids(i, DB)
+    }
   }
-
-  return(tidsForTwo(x, y, DB)/maxTid)
+  return(tidsForTwo(searchFor1, searchFor2, DB)/maxTid)
 }
 
 #' @title minSup
