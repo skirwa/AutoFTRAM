@@ -113,7 +113,7 @@ conf <- function(DB, x, y) {
 minConf <- function(DB, searchFor1, searchFor2) {
   maxTid = -1
   x <- list()
-  x.append(searchFor1, searchFor2)
+  x <- append(x, searchFor1, searchFor2)
   for (i in x) {
     if (tids(i, DB) > maxTid) {
       maxTid = tids(i, DB)
