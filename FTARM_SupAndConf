@@ -1,6 +1,8 @@
 #' @title sup
 #' @description Calculate the support value for an item.
-#' @details
+#' @details The support value of items will need to be compared to the
+#' minimum support value to determine which items to remove to accurately
+#' generate the appropriate number of rules.
 #' @param x The item whose support value will be calculated.
 #' @param DB The data set the item originates from.
 #' @return The support value.
@@ -13,7 +15,9 @@ sup <- function(x, DB) {
 
 #' @title conf
 #' @description Calculate the confidence value for a pair of items in the data.
-#' @details
+#' @details The confidence value of items will need to be compared to the
+#' minimum confidence value to determine which items to remove to accurately
+#' generate the appropriate number of rules.
 #' @param x The first of the two items to compute the confidence value for.
 #' @param y The second of the two items to compute the confidence value for.
 #' @param DB The data set the two items originate from.
@@ -27,7 +31,7 @@ conf <- function(x, y, DB) {
 
 #' @title minConf
 #' @description Calculate the minimum confidence value for a pair of items in the data.
-#' @details
+#' @details The minimum confidence value will be used for generating and expanding rules.
 #' @param x The first of the two items to compute the confidence value for.
 #' @param y The second of the two items to compute the confidence value for.
 #' @param DB The data set the two items originate from.
@@ -45,7 +49,7 @@ minConf <- function(x, y, DB) {
 
 #' @title minSup
 #' @description Calculate the minimum support value for a pair of items in the data.
-#' @details
+#' @details The minimum support value will be used for generating and expanding rules.
 #' @param x The first of the two items to compute the confidence value for.
 #' @param y The second of the two items to compute the confidence value for.
 #' @param DB The data set the two items originate from.

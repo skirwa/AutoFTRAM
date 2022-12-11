@@ -1,6 +1,6 @@
 #' @title tids
 #' @description Find the number of transaction IDs that contain a certain value.
-#' @details 
+#' @details This function will be used as a helper function in the sup function.
 #' @param searchFor The element being searched for in each column of the database.
 #' @param DB The database being searched for instances of searchFor.
 #' @return The number of instances of searchFor in DB (as an integer).
@@ -27,7 +27,8 @@ tids <- function(searchFor, DB) {
 
 #' @title tidsForTwo
 #' @description Find the number of transaction IDs that contain BOTH of two given values.
-#' @details
+#' @details Calculating confidence and minimum support/confidence values will require getting
+#' the TIDs for multiple items.
 #' @param searchFor1 The first element being searched for in each column of the database.
 #' @param searchFor2 The second element being searched for in each column of the database.
 #' @param DB The database being searched for instances of searchFor.
