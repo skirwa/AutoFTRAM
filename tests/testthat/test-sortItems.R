@@ -2,11 +2,10 @@ if (!require(testthat)) install.packages('testthat')
 
 library("testthat")
 setwd('..')
-source("../FTARM.R")
+source("../FTARM_SortItem.R")
 data <- read.csv("../movie_ratings.csv")
 
-test_that("To check minSup function working",{
-  expect_equal(0.45,minSup(1,data))
-  
+test_that("To check SortItem function working",{
+  expect_no_error(SortItems(data))
 })
 
