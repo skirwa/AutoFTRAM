@@ -38,9 +38,7 @@ conf <- function(x, y, DB) {
 #' @return The minimum acceptable confidence value for the pair of items.
 #' @author @skirwa
 minConf <- function(DB, searchFor1, searchFor2) {
-  # Item with the maximum tid is assigned to the maxTid variable.
-  maxTid <- -1
-  # Items are added to list x
+  maxTid = -1
   x <- list()
   x <- append(x, searchFor1, searchFor2)
   for (i in x) {
