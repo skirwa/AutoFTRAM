@@ -46,6 +46,7 @@ minConf <- function(DB, searchFor1, searchFor2) {
       maxTid = tids(i, DB)
     }
   }
+  out = round(tidsForTwo(searchFor1, searchFor2, DB)/maxTid,3)
   return(tidsForTwo(searchFor1, searchFor2, DB)/maxTid)
 }
 

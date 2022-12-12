@@ -2,7 +2,7 @@ if (!require(testthat)) install.packages('testthat')
 
 library("testthat")
 setwd('..')
-source("../FTARM.R")
+source("../FTARM_TIDFunctions.R")
 data <- read.csv("../movie_ratings.csv")
 
 test_that("To check tids function working",{
