@@ -1,5 +1,5 @@
 if (!require(testthat)) install.packages('testthat')
-
+library(dplyr)
 library("testthat")
 setwd('..')
 source("../FTARM_SortItem.R")
