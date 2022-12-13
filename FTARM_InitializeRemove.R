@@ -9,6 +9,7 @@
 #' @param mconf The minimum accepted confidence value.
 #' @return The list of items to generate the desired number of rules.
 #' @author @skirwa
+#' @export 
 Initialize_Remove <- function (DB, k, mconf) {
   # Calculate minimum number of items m required to generate k rules based on k.
   m <- k * (2/15) # Derived from the example in the article (Propert 5). 
