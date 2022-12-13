@@ -28,7 +28,8 @@ sup <- function(x, DB) {
 conf <- function(x, y, DB) {
     # Confidence is the no of transactions with items x and y / no of transactions with item x.
     confidence = tidsForTwo(x, y, DB) / tids(x, DB)
-    return(confidence)
+    out = round(confidence,3)
+    return (out)
 }
 
 #' @title minConf
@@ -50,7 +51,7 @@ minConf <- function(DB, searchFor1, searchFor2) {
     }
   }
   out = round(tidsForTwo(searchFor1, searchFor2, DB)/maxTid,3)
-  return(tidsForTwo(searchFor1, searchFor2, DB)/maxTid)
+  return(out)
 }
 
 #' @title minSup
