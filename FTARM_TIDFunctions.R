@@ -5,6 +5,7 @@
 #' @param DB The database being searched for instances of searchFor.
 #' @return The number of instances of searchFor in DB (as an integer).
 #' @author @NessXToJason
+#' @export
 tids <- function(searchFor, DB) {
   # DB must be coerced into a list first
   DB <- as.list(DB)
@@ -34,6 +35,7 @@ tids <- function(searchFor, DB) {
 #' @param DB The database being searched for instances of searchFor.
 #' @return The number of columns BOTH values appeared in.
 #' @author @NessXToJason
+#' @export
 tidsForTwo <- function(searchFor1, searchFor2, DB) {
   # DB must be coerced into a list first
   DB <- as.list(DB)

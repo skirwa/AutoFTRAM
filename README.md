@@ -10,7 +10,7 @@ TBA
 TBA
 
 ## Package Vingette
-TBA
+[View vingette here](https://github.com/skirwa/AutoFTRAM/tree/main/vignettes)
 
 ## Example
-TBA
+The functions in this package can be used to help generate top-K association rules for datasets such as [this example dataset](https://github.com/skirwa/AutoFTRAM/blob/main/movie_ratings.csv).

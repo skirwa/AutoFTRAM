@@ -1,11 +1,11 @@
-#' @title SortItem
+#' @title SortItems
 #' @description Sort the items in the data set based on their support value.
 #' @details Updating the minimum support value in Initialize_Remove is a simpler process
 #' when the data set is sorted by the items' support value.
 #' @param DB The data whose items will be sorted.
 #' @return A descending list of the items in the data based on their support values.
 #' @author @skirwa
-
+#' @export 
 SortItems <- function(DB) {
   # Define an empty vector
   itemsinData <- c()

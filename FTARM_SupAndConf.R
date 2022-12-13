@@ -7,6 +7,7 @@
 #' @param DB The data set the item originates from.
 #' @return The support value.
 #' @author @skirwa
+#' @export
 sup <- function(x, DB) {
   # Support is the no of transactions (I) in DB with item i / total number of transactions in DB.   
   support <- tids(x, DB) / length(DB)
@@ -23,10 +24,11 @@ sup <- function(x, DB) {
 #' @param DB The data set the two items originate from.
 #' @return The confidence value.
 #' @author @skirwa
+#' @export
 conf <- function(x, y, DB) {
     # Confidence is the no of transactions with items x and y / no of transactions with item x.
     confidence = tidsForTwo(x, y, DB) / tids(x, DB)
-    return (confidence)
+    return(confidence)
 }
 
 #' @title minConf
@@ -37,6 +39,7 @@ conf <- function(x, y, DB) {
 #' @param DB The data set the two items originate from.
 #' @return The minimum acceptable confidence value for the pair of items.
 #' @author @skirwa
+#' @export
 minConf <- function(DB, searchFor1, searchFor2) {
   maxTid = -1
   x <- list()
@@ -58,6 +61,7 @@ minConf <- function(DB, searchFor1, searchFor2) {
 #' @param DB The data set the two items originate from.
 #' @return The minimum acceptable support value for the pair of items.
 #' @author @skirwa
+#' @export
 minSup <- function(x, y, DB) {
    return(tidsForTwo(x, y, DB)/length(DB))
 }
