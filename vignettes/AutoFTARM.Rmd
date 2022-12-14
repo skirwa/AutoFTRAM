@@ -234,6 +234,14 @@ SortItems <- function(DB) {
 tail(SortItems(data_sample), 5)
 ```
 
+### Project Aims
+
+Aim 1: Develop a package (AutoFTARM) that improves the accuracy of FTARM algorithm.
+* Successfully implemented some of FTARM’s dependent functions. AutoFTARM will be up and running once all the building blocks of FTARM are functioning.
+
+Aim 2: Enhance Apriori algorithm by automating the computation of minimum support and minimum confidence values.
+* Implemented functions that compute minimum support and minimum confidence. We plan on expanding the two functions, so that they can be adopted by the other algorithms that do association rule mining.
+
 
 ## References
 
