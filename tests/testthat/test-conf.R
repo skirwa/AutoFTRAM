@@ -2,8 +2,8 @@ if (!require(testthat)) install.packages('testthat')
 
 library("testthat")
 setwd('..')
-source("../FTARM_SupAndConf.R")
-source("../FTARM_TIDFunctions.R")
+source("../R/FTARM_SupAndConf.R")
+source("../R/FTARM_TIDFunctions.R")
 data <- read.csv("../movie_ratings.csv")
 
 test_that("To check conf function working",{
