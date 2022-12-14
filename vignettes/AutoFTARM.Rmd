@@ -27,7 +27,7 @@ There is only one algorithm (`apriori`) in R programming language that does asso
 
 ## Demonstration of association rule mining
 
-We used the existing `Apriori` algorithm to demonstrate association rule mining and to show how the `FTARM` algorithm is expected to work after it's successful implementation.
+We used the existing `Apriori` algorithm to demonstrate association rule mining and to show how the `FTARM` algorithm is expected to work after its successful implementation.
 
 ```{r, message = FALSE, warning = FALSE}
 # Load packages
@@ -92,7 +92,7 @@ Our success was dependent on the implementation and functioning of the `FTARM` a
 
 We used the [movie_lens](2.	https://grouplens.org/datasets/movielens/) dataset, which is publicly available. Only a subset of the data, with 400 observations was used. The sample data contains a list of movies that the users gave a rating of 5. The sample data was stored in a csv file named `movie_ratings.csv`, which is available on our [github](https://github.com/skirwa/AutoFTRAM) repository.
 
-### Demonstration FTARM's dependent functions that were successfully implemented:
+### Demonstration of FTARM's dependent functions that were successfully implemented:
 
 
 ```{r}
@@ -208,6 +208,7 @@ minSup(1, data_sample)
 ```
 
 * `SortItems()` - Used to sort items in descending order based on their support values.
+
 ```{r}
 SortItems <- function(DB) {
   # Define an empty vector
@@ -237,9 +238,11 @@ tail(SortItems(data_sample), 5)
 ### Project Aims
 
 Aim 1: Develop a package (AutoFTARM) that improves the accuracy of FTARM algorithm.
+
 * Successfully implemented some of FTARM’s dependent functions. AutoFTARM will be up and running once all the building blocks of FTARM are functioning.
 
 Aim 2: Enhance Apriori algorithm by automating the computation of minimum support and minimum confidence values.
+
 * Implemented functions that compute minimum support and minimum confidence. We plan on expanding the two functions, so that they can be adopted by the other algorithms that do association rule mining.
 
 
